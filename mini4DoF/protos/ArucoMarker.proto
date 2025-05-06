@@ -1,0 +1,23 @@
+#VRML_SIM R2023a utf8
+PROTO ArUcoMarker [
+  field SFVec3f    translation 2.65 2.93 0.81
+  field SFRotation rotation    0 0 1 0
+  field SFString   name        "aruco_marker"
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+    children [
+      Shape {
+        appearance PBRAppearance {
+          baseColorTexture "textures/aruco1_resized.png"
+        }
+        geometry Box {
+          size 0.05 0.05 0.001
+        }
+      }
+    ]
+  }
+}
+

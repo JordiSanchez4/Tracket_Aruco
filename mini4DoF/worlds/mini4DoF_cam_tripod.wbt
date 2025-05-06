@@ -1,0 +1,883 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Door.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Window.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Ceiling.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/chairs/protos/WoodenChair.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/chairs/protos/OfficeChair.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/paintings/protos/LandscapePainting.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/plants/protos/PottedTree.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/kitchen/utensils/protos/Wineglass.proto"
+EXTERNPROTO "../protos/urdf/robot.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/VarnishedPine.proto"
+EXTERNPROTO "../protos/Laptop.proto"
+
+WorldInfo {
+  info [
+    "mini4DoF controlled by keyboard and mouse"
+  ]
+  title "mini4DoF Digital Twin"
+}
+Viewpoint {
+  orientation -0.32264949769077755 0.15138255687032456 0.9343343208484273 2.3722556371123282
+  position 3.6515809972104263 1.7114142584291834 1.7183969751152213
+}
+DEF classroom Group {
+  children [
+    Floor {
+      size 10 14
+      tileSize 8 8
+      appearance Parquetry {
+        type "light strip"
+      }
+    }
+    Table {
+      translation 2.52 2.94 0
+      rotation 0 0 1 -1.5707953071795862
+      name "table(6)"
+      size 1 2.5 0.74
+      trayAppearance VarnishedPine {
+        textureTransform TextureTransform {
+          scale 4 2
+        }
+      }
+    }
+    Robot {
+      children [
+        Pose {
+          translation 2.9 2.95 0.65
+          rotation 0 0 1 -1.570796
+          children [
+            Camera {
+              translation 0.24 0.15 0.35
+              rotation -0.1970422393758821 -0.2736697769109474 0.941424032573659 -1.6
+              name "WebCam"
+              fieldOfView 1.5
+              width 1280
+              height 720
+              near 0.05
+            }
+            Pose {
+              translation 0.1 0.08 0.3
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.1 0.1 0.1
+                    }
+                  }
+                  geometry Box {
+                    size 0.03 0.03 0.05
+                  }
+                }
+              ]
+            }
+            Transform {
+              translation 0 0 0.035
+              rotation 1 0 0 1.5708
+              scale 0.002 0.002 0.002
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.2 0.2 0.2
+                    }
+                  }
+                  geometry Mesh {
+                    url [
+                      "../protos/Tripode.obj"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+      controller "Controller_camera"
+    }
+    Table {
+      translation -2.54 2.94 0
+      rotation 0 0 1 -1.5707953071795862
+      name "table(1)"
+      size 1 2.5 0.74
+      trayAppearance VarnishedPine {
+        textureTransform TextureTransform {
+        }
+      }
+    }
+    Table {
+      translation -2.54 0.27 0
+      rotation 0 0 1 -1.5707953071795862
+      name "table(2)"
+      size 1 2.5 0.74
+      trayAppearance VarnishedPine {
+        textureTransform TextureTransform {
+        }
+      }
+    }
+    Table {
+      translation 2.55 0.27 0
+      rotation 0 0 1 -1.5707953071795862
+      name "table(3)"
+      size 1 2.5 0.74
+      trayAppearance VarnishedPine {
+        textureTransform TextureTransform {
+        }
+      }
+    }
+    Table {
+      translation 2.55 -2.81 0
+      rotation 0 0 1 -1.5707953071795862
+      name "table(4)"
+      size 1 2.5 0.74
+      trayAppearance VarnishedPine {
+        textureTransform TextureTransform {
+        }
+      }
+    }
+    Table {
+      translation -2.49 -2.81 0
+      rotation 0 0 1 -1.5707953071795862
+      name "table(5)"
+      size 1 2.5 0.74
+      trayAppearance VarnishedPine {
+        textureTransform TextureTransform {
+        }
+      }
+    }
+    Ceiling {
+      translation 0 0 3
+      size 10 14
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+    Door {
+      hidden translation_5 0.002134219941822113 0.0003543005882950534 9.992007221626409e-16
+      hidden rotation_5 0 0 -1 0.0023869502399314624
+      hidden linearVelocity_5 9.51185767698276e-11 -2.10474848124617e-09 -6.638765226803506e-05
+      hidden angularVelocity_5 -2.615503712734125e-05 1.4500901900750851e-06 -4.319973025153057e-10
+      translation 4.9 6.3 0
+      size 0.2 1 3
+      position -0.0023869502398506243
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Wall {
+      translation 0 6.9 0
+      rotation 0 0 1 1.5708
+      size 0.2 10 3
+    }
+    Wall {
+      translation 0 -6.9 0
+      rotation 0 0 1 1.5708
+      name "wall(1)"
+      size 0.2 10 3
+    }
+    Wall {
+      translation 4.9 5.4 0
+      name "wall(2)"
+      size 0.2 0.8 3
+    }
+    Wall {
+      translation 4.9 -5.9 0
+      name "wall(3)"
+      size 0.2 1.8 3
+    }
+    Wall {
+      translation -4.9 -5.9 0
+      name "wall(4)"
+      size 0.2 1.8 3
+    }
+    Wall {
+      translation -4.9 5.9 0
+      name "wall(5)"
+      size 0.2 1.8 3
+    }
+    Window {
+      translation 4.9 4 0
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation 4.9 2 0
+      name "window(1)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation 4.9 0 0
+      name "window(2)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation 4.9 -2 0
+      name "window(3)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation 4.9 -4 0
+      name "window(4)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation -4.9 4 0
+      name "window(8)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation -4.9 2 0
+      name "window(5)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation -4.9 0 0
+      name "window(6)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation -4.9 -2 0
+      name "window(7)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    Window {
+      translation -4.9 -4 0
+      name "window(9)"
+      size 0.2 2 3
+      bottomWallHeight 0.8
+      windowHeight 1.6
+      frameAppearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/wood002.jpg"
+          ]
+        }
+      }
+    }
+    DEF lights Group {
+      children [
+        SpotLight {
+          attenuation 0 0 1
+          beamWidth 0.7
+          direction 0 1 -2
+          intensity 19
+          location 0 -8 11
+          radius 20
+        }
+        PointLight {
+          attenuation 0 0 6.28
+          intensity 8
+          location 2.5 2.5 2.9
+          radius 9
+          castShadows TRUE
+        }
+        PointLight {
+          attenuation 0 0 6.28
+          intensity 8
+          location -2.5 2.5 2.9
+          radius 9
+        }
+        PointLight {
+          attenuation 0 0 6.28
+          intensity 8
+          location -2.5 -2.5 2.9
+          radius 12
+        }
+        PointLight {
+          attenuation 0 0 3.14
+          intensity 8
+          location 2.5 -2.5 2.9
+          radius 12
+        }
+        Solid {
+          translation 0 6.8 0.4
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric"
+        }
+        Solid {
+          translation -3 6.8 0.4
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(1)"
+        }
+        Solid {
+          translation 3 6.8 0.4
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(2)"
+        }
+        Solid {
+          translation 4.8 4.5 0.4
+          rotation 0 0 1 -1.5707953071795862
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(3)"
+        }
+        Solid {
+          translation 4.8 2.5 0.4
+          rotation 0 0 1 -1.5707953071795862
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(4)"
+        }
+        Solid {
+          translation 4.8 0.5 0.4
+          rotation 0 0 1 -1.5707953071795862
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(5)"
+        }
+        Solid {
+          translation 4.8 -1.5 0.4
+          rotation 0 0 1 -1.5707953071795862
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(6)"
+        }
+        Solid {
+          translation 4.8 -3.5 0.4
+          rotation 0 0 1 -1.5707953071795862
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(7)"
+        }
+        Solid {
+          translation 4.8 -5.5 0.4
+          rotation 0 0 1 -1.5707953071795862
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Electric plug/Electric plug.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "electric(8)"
+        }
+      ]
+    }
+    DEF furniture Group {
+      children [
+        Solid {
+          translation 0.8 6.79 1.4
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.933333 0.933333 0.92549
+                  emissiveColor 0.729412 0.741176 0.713726
+                }
+                texture ImageTexture {
+                  url [
+                    "textures/pizarron.png"
+                  ]
+                }
+              }
+              geometry Box {
+                size 6.4 0.02 1.6
+              }
+            }
+            Pose {
+              translation 0 -0.02 -0.81
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                    texture ImageTexture {
+                      url [
+                        "textures/wood002.jpg"
+                      ]
+                    }
+                  }
+                  geometry Box {
+                    size 6.4 0.06 0.02
+                  }
+                }
+              ]
+            }
+          ]
+          name "board"
+        }
+        Solid {
+          translation -3.78998 5.46 0
+          rotation 0 0 1 3.14159
+          children [
+            DEF desktop Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Desktop/Desktop.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "desktop"
+          boundingObject Group {
+            children [
+              Pose {
+                translation 0 0 0.81
+                children [
+                  Shape {
+                    geometry Box {
+                      size 2 0.7 0.02
+                    }
+                  }
+                ]
+              }
+              Pose {
+                translation -0.895 0.05 0.4
+                children [
+                  Shape {
+                    geometry Box {
+                      size 0.01 0.6 0.8
+                    }
+                  }
+                ]
+              }
+              Pose {
+                translation 0.895 0.05 0.4
+                children [
+                  Shape {
+                    geometry Box {
+                      size 0.01 0.6 0.8
+                    }
+                  }
+                ]
+              }
+              Pose {
+                translation 0 0.345 0.45
+                children [
+                  Shape {
+                    geometry Box {
+                      size 1.78 0.01 0.7
+                    }
+                  }
+                ]
+              }
+              Pose {
+                translation -0.64 0.045 0.45
+                children [
+                  Shape {
+                    geometry Box {
+                      size 0.5 0.59 0.7
+                    }
+                  }
+                ]
+              }
+              Pose {
+                translation 0.64 0.045 0.45
+                children [
+                  Shape {
+                    geometry Box {
+                      size 0.5 0.59 0.7
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+        OfficeChair {
+          hidden position_0_0 -0.012879469834528479
+          hidden linearVelocity_0 -2.3450359404013926e-05 -9.272608871720912e-06 -3.682931463689934e-05
+          hidden angularVelocity_0 -9.064269966716932e-06 -1.5979922091217032e-05 3.556748883325645e-05
+          hidden rotation_1 0 0 -0.9999999999999999 0.031142565409852437
+          hidden linearVelocity_1 -3.189400945564103e-05 -1.1766407932384506e-05 -4.394107882300583e-05
+          hidden angularVelocity_1 -1.3515423429797877e-06 -1.0716708072172419e-05 -5.162946989921682e-06
+          translation -3.7875583376982456 6.1764697395675086 0.004238229582827491
+          rotation 0.0056243548892026835 0.010603802023347741 -0.999927960412514 1.5413704154536048
+        }
+        Solid {
+          translation 4.6 4.96 0
+          children [
+            Transform {
+              scale 0.01 0.01 0.01
+              children [
+                CadShape {
+                  url [
+                    "obj/Trash Can/Trash Can.obj"
+                  ]
+                }
+              ]
+            }
+          ]
+          name "trash"
+        }
+        LandscapePainting {
+          translation -3.6 6.79 1.7
+          rotation 0 0 1 -1.5707953071795862
+          textureUrl [
+            "textures/banner.png"
+          ]
+        }
+        LandscapePainting {
+          translation -4.78 5.91 1.7
+          rotation 0 0 1 1.01503e-06
+          name "landscape painting(1)"
+          textureUrl [
+            "textures/x-rayArm.png"
+          ]
+        }
+        WoodenChair {
+          translation 2 2.5 0
+          rotation 0 0 1 1.5708
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation 3.33 2 0
+          rotation 3.97223e-09 -9.58977e-09 1 2.35619
+          name "wooden chair(1)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation 2 -0.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(2)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation 3 -0.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(3)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation 2 -3.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(4)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation 3 -3.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(5)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation -2 2.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(6)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation -3 2.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(7)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation -2 -0.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(8)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation -3 -0.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(9)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation -2 -3.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(10)"
+          color 0.321569 0.321569 0.321569
+        }
+        WoodenChair {
+          translation -3 -3.5 0
+          rotation 0 0 1 1.5708
+          name "wooden chair(11)"
+          color 0.321569 0.321569 0.321569
+        }
+        PottedTree {
+          translation 4.61 5.36 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+      ]
+    }
+    Laptop {
+      hidden position_0_0 -0.00034899523346876293
+      hidden linearVelocity_0 -1.890065591899971e-10 4.2651960665090277e-10 -2.3787808918645966e-08
+      hidden angularVelocity_0 -4.264397251588065e-08 -1.8897799920322222e-08 7.220593537012714e-13
+      hidden translation_1 -0.12505597062112966 -0.0139999999999997 0.1180140678643397
+      hidden rotation_1 0.6163115461589471 -0.6164040967747944 -0.4901082202436702 2.2302507004302554
+      hidden linearVelocity_1 -1.2771668494665484e-07 2.813371430384626e-07 -1.739658480971682e-06
+      hidden angularVelocity_1 -3.6834239651392037e-06 -1.672329853724473e-06 -9.298114169498007e-11
+      translation 1.7100000228105467 3.099999951143624 0.7388499451113728
+      rotation -0.0013942000441220126 -0.002210659413004034 -0.9999965845897657 1.1424349282832695
+      controller "laptop_switch_on"
+    }
+  ]
+}
+Wineglass {
+  hidden linearVelocity_0 8.179134660200627e-05 -0.00011720761076775375 -1.0307022239572906e-05
+  hidden angularVelocity_0 0.0012897915323588104 0.0009000650309584747 -2.101438284396012e-09
+  translation 2.0000000707251635 3.150066674113369 0.7395832870106313
+  rotation -0.0014886152834844436 -0.9997763711507404 0.02109482669269732 0.000779272705340173
+}
+Pose {
+  translation 2.59 2.95957 0.7155
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.8 0.8
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.45 0.45 0.05
+      }
+    }
+  ]
+}
+robot {
+  hidden position_0_0 0.24411234518873404
+  hidden rotation_1 0 0 -1 0.5601199177655727
+  hidden position_1_0 1.0752593451717884
+  hidden linearVelocity_1 5.553484847087201e-10 -4.867677032609119e-10 -7.543279147327797e-07
+  hidden angularVelocity_1 3.184829804853658e-08 3.6334842574305375e-08 6.790819146986193e-14
+  hidden rotation_2 0.7645094327759334 -0.4558099730085867 0.4558098240522379 1.8361470206151185
+  hidden position_2_0 -0.2617968921502636
+  hidden linearVelocity_2 1.49538317784643e-08 -9.724372965601414e-09 -1.484212778903374e-06
+  hidden angularVelocity_2 9.299888894573775e-07 1.4737582933516423e-06 9.96401966999087e-14
+  hidden rotation_3 0 0 -1 0.2617968921502644
+  hidden position_3_0 -0.7853812364395246
+  hidden linearVelocity_3 1.081984867791765e-07 -6.851861520230204e-08 -2.0713870578748865e-06
+  hidden angularVelocity_3 1.4851931878785974e-06 2.3631759408639872e-06 -3.9569709678505346e-14
+  hidden rotation_4 0 0 -1 0.7853812364395245
+  hidden position_4_0 -4.879687557626056e-09
+  hidden linearVelocity_4 2.1540829795807858e-07 -1.3589020464903257e-07 -2.5956798427435305e-06
+  hidden angularVelocity_4 1.7288215658389244e-06 2.754828213223389e-06 -1.2482451265212656e-13
+  hidden rotation_6 -0.5673641183527243 -0.5822791243063056 0.5822791243063051 4.173745997158661
+  hidden linearVelocity_6 2.1569241438765613e-07 -1.3606730341606492e-07 -2.8798374395251205e-06
+  hidden angularVelocity_6 1.7296699979523342e-06 2.75626859309855e-06 4.3730306931538187e-11
+  translation 2.39219 2.95957 0.74
+  rotation 0 1 0 0
+  name "Brazo"
+  controller "<extern>"
+}
+DEF ARUCO_MARKER Solid {
+  translation 2.604013031599834 2.9579270643505264 0.76
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "textures/aruco1.png"
+          ]
+        }
+      }
+      geometry Plane {
+        size 0.1 0.1
+      }
+    }
+  ]
+}
+Robot {
+  name "Supervisor"
+  controller "Mover_Aruco"
+  supervisor TRUE
+}
