@@ -6,7 +6,7 @@ minimizedPerspectives: 000000ff00000000fd00000002000000010000011c000001b9fc02000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 2 "controllers/Controller_camera/Controller_camera.py" "worlds/mini4DoF_cam_tripod.wbt" "controllers/Mover_Aruco/Mover_Aruco.py" "controllers/external_controller/external_controller.py" "controllers/aruco_brazo_control/aruco_brazo_control.py"
+textFiles: 0 "controllers/Controller_camera/Controller_camera.py" "worlds/mini4DoF_cam_tripod.wbt" "controllers/Mover_Aruco/Mover_Aruco.py" "controllers/external_controller/external_controller.py" "controllers/aruco_brazo_control/aruco_brazo_control.py"
 consoles: Console:All:All
 renderingDevicePerspectives: laptop:display;0;0.16;0;0
 renderingDevicePerspectives: robot:WebCam;1;0.165625;0;0

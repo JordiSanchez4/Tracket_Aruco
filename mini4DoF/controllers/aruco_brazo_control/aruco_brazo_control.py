@@ -6,10 +6,13 @@ from sensor_msgs.msg import Joy
 import numpy as np
 from scipy.io import savemat
 import os
+import threading
+
 
 
 # Global variables Odometry Drone
 posicion_aruco = np.array([0.15,0.15,0.04])
+aruco_lock = threading.Lock()
 q1 = 1.0
 q2 = 0
 q3 = 0.0
@@ -60,6 +63,7 @@ def jacobiana_Brazo4DOF(L, q):
 def Controler_pos(L, q, he, hdp,val):
 
     q1, q2, q3, q4 = q
+    print(f"q1:{q1},q2:{q2},q3:{q3},q4:{q4}")
 
     # Jacobiano
     J = jacobiana_Brazo4DOF(L, q)
@@ -68,7 +72,7 @@ def Controler_pos(L, q, he, hdp,val):
     K = val*np.eye(3)
 
     # Posiciones deseadas de los eslabones
-    q1d = 90 * np.pi / 180
+    q1d = 0 * np.pi / 180
     q2d = 30 * np.pi / 180
     q3d = -15 * np.pi / 180
     q4d = +30 * np.pi / 180
@@ -80,7 +84,7 @@ def Controler_pos(L, q, he, hdp,val):
     hq4 = q4d - q4
     n = np.array([hq1, hq2, hq3, hq4])
 
-    print(f"Posiciones deseadas: Xd = {q1d}, Yd = {q2d}, Zd = {q3d}, Wd = {q4d}")
+    #print(f"Posiciones deseadas: Xd = {q1d}, Yd = {q2d}, Zd = {q3d}, Wd = {q4d}")
 
     # Matriz ganancia D
     D = np.diag([1,5,5,10])
@@ -88,8 +92,7 @@ def Controler_pos(L, q, he, hdp,val):
     # Tarea secundaria para el robot
     I = np.eye(4)
     
-
-    TAREA_S = np.dot((I - np.dot(np.linalg.pinv(J), J)), np.dot(D, n))
+    #TAREA_S = np.dot((I - np.dot(np.linalg.pinv(J), J)), np.dot(D, n))
 
     # Matriz de ganancia
     K = val*np.eye(3)
@@ -97,7 +100,7 @@ def Controler_pos(L, q, he, hdp,val):
 
     # Control principal con regularización
     try:
-        Vref = np.linalg.lstsq(J, K @ np.tanh(0.5 * he), rcond=1e-3)[0] + TAREA_S
+        Vref = np.linalg.lstsq(J, K @ np.tanh(0.5 * he), rcond=1e-3)[0] #+ TAREA_S
     except:
         Vref = np.zeros(4)
     # Controlador
@@ -108,6 +111,7 @@ def Controler_pos(L, q, he, hdp,val):
 
 
 def states_call_back(state_msg):
+    print(f"state_msg:{state_msg}")
     global q1, q2, q3, q4, q1_p, q2_p, q3_p, q4_p
     # Leer velocidades lineales deseadas del mensaje
     q1 = state_msg.axes[0]
@@ -182,14 +186,18 @@ def main():
     umbral = 0.01
     #INICIALIZA LECTURA DE ODOMETRIA redefim=nir con un while, y hacer una k sumando, o hacer un tiempo muyn grande
     for k in range(0,t.shape[0]):
-        ref = posicion_aruco.copy()
+        with aruco_lock:
+            ref = posicion_aruco.copy()
+        print(f"Ref:{ref}")
         # Read Real data
         x[:, k] = get_pose_arm()
         x_p[:, k] = get_vel_arm()
 
         h[:,k] = CDArm4DOF(l, x[:, k])
+        print(f"Posicion_actual:{h[:, k]}")
         #Controlador
         Error[:,k] = ref - h[:, k]
+        print(f"Error:{Error[:,k]}")
         u[:,k] = Controler_pos(l, x[:, k], Error[:,k], np.zeros(3), K)
         send_velocity_control(u[:,k])
         # Loop_rate.sleep()
@@ -200,7 +208,9 @@ def main():
 
 def ARUCO_POSITION_call_back(msg):
     global posicion_aruco
-    posicion_aruco = np.array([msg.x, msg.y, msg.z])
+    with aruco_lock:
+        posicion_aruco = np.array([msg.x, msg.y, msg.z])
+        print(f"posicion_aruco:{posicion_aruco}")
 
 if __name__ == '__main__':
     try:
@@ -209,7 +219,9 @@ if __name__ == '__main__':
         # SUCRIBER
         rospy.Subscriber("/states", Joy, states_call_back)
         rospy.Subscriber("/aruco_position", Point, ARUCO_POSITION_call_back)
-        main()
+       
+        TH = threading.Thread(target=main)
+        TH.start()
         rospy.spin()
     except(rospy.ROSInterruptException, KeyboardInterrupt):
         print("\nError System")
