@@ -140,7 +140,7 @@ def main():
         motor_1.setVelocity(u[0])
         motor_2.setVelocity(u[1])
         motor_3.setVelocity(u[2])
-        motor_4.setVelocity(0.4)
+        motor_4.setVelocity(u[3])
 
 
         #print("Posición actual del motor 'm2':", sensor_2.getValue()+ math.pi / 2 )    

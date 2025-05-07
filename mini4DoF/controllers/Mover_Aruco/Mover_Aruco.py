@@ -19,7 +19,7 @@ class MoverAruco:
 
     def move(self):
         contador_tiempo = 0
-        esperar_steps = int((1000) / self.timestep)  # Cambia cada 2 segundos
+        esperar_steps = int((2000) / self.timestep)  # Cambia cada 2 segundos
 
         while self.robot.step(self.timestep) != -1 and not rospy.is_shutdown():
             if contador_tiempo == 0:
@@ -40,4 +40,3 @@ class MoverAruco:
 if __name__ == "__main__":
     mover = MoverAruco()
     mover.move()
-
