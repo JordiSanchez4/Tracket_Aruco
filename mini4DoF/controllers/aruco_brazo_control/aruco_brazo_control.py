@@ -179,8 +179,8 @@ def main():
     # Errors of the system
     Error = np.zeros((3, t.shape[0]), dtype = np.double)
 
-    # Ganancia del controlador
-    K = 0.5
+    # Ganancia del controlador valor inicial 0.5
+    K = 1.9
 
     a = True
     umbral = 0.01

@@ -12,12 +12,12 @@ class CameraArucoPublisher:
         self.camera = self.robot.getDevice('WebCam')
         self.camera.enable(self.timestep)
 
-        self.aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
-        self.parameters = cv2.aruco.DetectorParameters_create()
-
+        self.aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
+        self.parameters = aruco.DetectorParameters()  # ← corrección aquí
+        self.detector = aruco.ArucoDetector(self.aruco_dict, self.parameters)
 
         rospy.init_node('aruco_camera_publisher', anonymous=True)
-        self.pub = rospy.Publisher('/aruco_position', Float32MultiArray, queue_size=10)
+        self.pub = rospy.Publisher('/aruco_position_camara', Float32MultiArray, queue_size=10)
 
     def run(self):
         while self.robot.step(self.timestep) != -1:
@@ -26,12 +26,9 @@ class CameraArucoPublisher:
             frame = cv2.cvtColor(img_array, cv2.COLOR_BGRA2BGR)
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            detector = cv2.aruco.ArucoDetector(self.aruco_dict, self.parameters)
-            corners, ids, _ = detector.detectMarkers(gray)
+            corners, ids, _ = self.detector.detectMarkers(gray)
 
-
-
-            if len(corners) > 0:
+            if ids is not None and len(corners) > 0:
                 c = corners[0][0]
                 center_x = int((c[0][0] + c[1][0] + c[2][0] + c[3][0]) / 4)
                 center_y = int((c[0][1] + c[1][1] + c[2][1] + c[3][1]) / 4)
@@ -45,4 +42,3 @@ class CameraArucoPublisher:
 if __name__ == "__main__":
     viewer = CameraArucoPublisher()
     viewer.run()
-

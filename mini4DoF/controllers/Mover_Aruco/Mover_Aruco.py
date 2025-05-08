@@ -21,12 +21,12 @@ class MoverAruco:
 
     def move(self):
         contador_tiempo = 0
-        esperar_steps = int((2000) / self.timestep)  # Cambia cada 2 segundos
+        esperar_steps = int((1000) / self.timestep)  # Cambia cada 2 segundos
 
         while self.robot.step(self.timestep) != -1 and not rospy.is_shutdown():
             if contador_tiempo == 0:
-                x = random.uniform(2.6, 2.66)
-                y = random.uniform(2.74, 2.79)
+                x = random.uniform(2.4, 2.6)
+                y = random.uniform(2.7, 2.9)
                 nueva_pos = [x, y, 0.76]
                 self.aruco_node.getField("translation").setSFVec3f(nueva_pos)
                 print(f"[INFO] ArUco movido a: {nueva_pos}")
