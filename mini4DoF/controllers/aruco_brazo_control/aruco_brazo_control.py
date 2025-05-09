@@ -87,12 +87,12 @@ def Controler_pos(L, q, he, hdp,val):
     #print(f"Posiciones deseadas: Xd = {q1d}, Yd = {q2d}, Zd = {q3d}, Wd = {q4d}")
 
     # Matriz ganancia D
-    D = np.diag([1,5,5,10])
+    D = np.diag([1,1,1,1])
 
     # Tarea secundaria para el robot
     I = np.eye(4)
     
-    #TAREA_S = np.dot((I - np.dot(np.linalg.pinv(J), J)), np.dot(D, n))
+    TAREA_S = np.dot((I - np.dot(np.linalg.pinv(J), J)), np.dot(D, n))
 
     # Matriz de ganancia
     K = val*np.eye(3)
@@ -100,7 +100,13 @@ def Controler_pos(L, q, he, hdp,val):
 
     # Control principal con regularización
     try:
-        Vref = np.linalg.lstsq(J, K @ np.tanh(0.5 * he), rcond=1e-3)[0] #+ TAREA_S
+        #Vref = np.linalg.lstsq(J, K @ np.tanh(0.5 * he), rcond=1e-3)[0] #+ TAREA_S
+
+        JT = J.T
+        lambda_dls = 0.01  # regularización
+        Vref = JT @ np.linalg.inv(J @ JT + lambda_dls * np.eye(3)) @ (K @ np.tanh(0.5 * he)) + TAREA_S
+
+
     except:
         Vref = np.zeros(4)
     # Controlador
@@ -179,8 +185,8 @@ def main():
     # Errors of the system
     Error = np.zeros((3, t.shape[0]), dtype = np.double)
 
-    # Ganancia del controlador valor inicial 0.5
-    K = 1.9
+    # Ganancia del controlador
+    K = 0.5
 
     a = True
     umbral = 0.01
