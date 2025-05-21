@@ -78,8 +78,8 @@ def send_velocity_control(u):
     control_pub.publish(control_msg)
 
 def main():
-    t_final = 60 #60 * 4
-    frec = 30
+    t_final = 200 #60 * 4
+    frec = 50 #valor inical 30
     t_s = 1 / frec
     t = np.arange(0, t_final, t_s)
 
@@ -94,9 +94,10 @@ def main():
 
     rate = rospy.Rate(frec)
     ref = np.zeros((3, t.shape[0]))
+
     ref_p = np.zeros((3, t.shape[0]))
     Error = np.zeros((3, t.shape[0]))
-    K = 0.5
+    K = 0.58 #original 0.5
 
     for k in range(t.shape[0]):
         with aruco_lock:
@@ -115,9 +116,15 @@ def main():
 
     send_velocity_control([0, 0, 0, 0])
 
-    np.savetxt("control.txt", x)
-    np.save("vector.npy",x)
-    np.save("vector12.npz",x,Error)
+    #np.savetxt("control.txt", x)
+    #np.save("vector.npy",x)
+    #np.save("vector12.npz",x,Error)
+    np.save("MinNorm_vector.npy", x)
+    np.save("MinNorm_error.npy", Error)
+    np.save("MinNorm_h.npy", h[:, :-1])
+    np.save("MinNorm_ref.npy", ref)
+
+
 
     # Posiciones
     plt.figure()
@@ -146,6 +153,11 @@ def main():
     plt.grid()
 
     plt.show()
+
+    
+
+
+    
 
 
     savemat("Control_Kin_Arm_4DOF.mat", {

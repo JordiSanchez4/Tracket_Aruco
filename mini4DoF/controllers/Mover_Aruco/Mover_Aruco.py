@@ -21,7 +21,7 @@ class MoverAruco:
 
     def move(self):
         contador_tiempo = 0
-        esperar_steps = int((20000) / self.timestep)  # Cambia cada 2 segundos
+        esperar_steps = int((8000) / self.timestep)  # valor inicial 10000Cambia 
 
         # Ángulo de rotación en radianes
         theta = math.radians(45)
@@ -30,7 +30,7 @@ class MoverAruco:
 
         while self.robot.step(self.timestep) != -1 and not rospy.is_shutdown():
             if contador_tiempo == 0:
-                # Movimiento aleatorio dentro del rango
+                # Movimiento aleatorio dentro del rango +0.04 y + 0.15
                 x = random.uniform(self.offset[0] + 0.04, self.offset[0] + 0.15)
                 y = random.uniform(self.offset[1] + 0.04, self.offset[1] + 0.15)
 

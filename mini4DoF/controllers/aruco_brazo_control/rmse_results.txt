@@ -1,0 +1,4 @@
+RMSE_x = 0.013218 m
+RMSE_y = 0.011596 m
+RMSE_z = 0.007498 m
+RMSE_total = 0.019116 m

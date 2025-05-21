@@ -53,18 +53,57 @@ DEF classroom Group {
     
     Robot {
       children [
-        Camera {
-          translation 2.9 2.85 0.85
+        Pose {
+          translation 2.9 2.95 0.65
+          rotation 0 0 1 -1.570796
           children [
-            Shape {
-              geometry Cylinder {
-                height 0.1
-                radius 0.05
-              }
+            Camera {
+              translation 0.24 0.15 0.35
+              rotation -0.1970422393758821 -0.2736697769109474 0.941424032573659 -1.6
+              name "WebCam"
+              fieldOfView 1.5
+              width 1280
+              height 720
+              near 0.05
+            }
+            Pose {
+              translation 0.1 0.08 0.3
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.1 0.1 0.1
+                    }
+                  }
+                  geometry Box {
+                    size 0.03 0.03 0.05
+                  }
+                }
+              ]
+            }
+            Transform {
+              translation 0 0 0.035
+              rotation 1 0 0 1.5708
+              scale 0.002 0.002 0.002
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0.2 0.2 0.2
+                    }
+                  }
+                  geometry Mesh {
+                    url [
+                      "../protos/Tripode.obj"
+                    ]
+                  }
+                }
+              ]
             }
           ]
         }
       ]
+      controller "Controller_camera"
     }
     
     

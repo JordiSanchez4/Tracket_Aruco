@@ -98,7 +98,7 @@ DEF classroom Group {
           ]
         }
       ]
-      controller "Controller_camera"
+      controller "Camara_ros"
     }
     Table {
       translation -2.54 2.94 0
@@ -855,7 +855,7 @@ robot {
   translation 2.39219 2.95957 0.74
   rotation 0 1 0 0
   name "Brazo"
-  controller "<extern>"
+  controller "external_controller"
 }
 DEF ARUCO_MARKER Solid {
   translation 2.604013031599834 2.9579270643505264 0.76

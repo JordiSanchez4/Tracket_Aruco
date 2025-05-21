@@ -27,7 +27,7 @@ class ArucoPosePublisher:
             -0.516887297
         ])
 
-        self.marker_length = 0.01665  # metros
+        self.marker_length = 0.01669  # metros 0.01665
 
         self.bridge = CvBridge()
         self.tf_broadcaster = tf.TransformBroadcaster()
