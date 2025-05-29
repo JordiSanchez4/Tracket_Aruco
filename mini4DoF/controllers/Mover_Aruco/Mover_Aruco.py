@@ -33,6 +33,10 @@ class MoverAruco:
                 # Movimiento aleatorio dentro del rango +0.04 y + 0.15
                 x = random.uniform(self.offset[0] + 0.04, self.offset[0] + 0.15)
                 y = random.uniform(self.offset[1] + 0.04, self.offset[1] + 0.15)
+                
+
+
+
 
                 nueva_pos = [x, y, 0.76]
                 self.aruco_node.getField("translation").setSFVec3f(nueva_pos)

@@ -5,6 +5,8 @@ import numpy as np
 from scipy.io import savemat
 import threading
 import matplotlib.pyplot as plt
+import sys ####nuevo para la data
+
 
 # Características del Brazo
 l = [0.0676, 0.06883, 0.06883, 0.15916]
@@ -78,7 +80,9 @@ def send_velocity_control(u):
     control_pub.publish(control_msg)
 
 def main():
-    t_final = 200 #60 * 4
+    t_final = 200
+    # t_final = int(sys.argv[2]) if len(sys.argv) > 2 else 200
+      #60 * 4
     frec = 50 #valor inical 30
     t_s = 1 / frec
     t = np.arange(0, t_final, t_s)
@@ -97,7 +101,9 @@ def main():
 
     ref_p = np.zeros((3, t.shape[0]))
     Error = np.zeros((3, t.shape[0]))
-    K = 0.58 #original 0.5
+    K = 0.65
+    #K = float(sys.argv[1]) if len(sys.argv) > 1 else 0.58
+      #original 0.5
 
     for k in range(t.shape[0]):
         with aruco_lock:
@@ -151,6 +157,24 @@ def main():
     plt.ylabel('Error [m]')
     plt.legend()
     plt.grid()
+
+
+    import os
+
+    # === Calcular RMSE por eje ===
+    rmse_x = np.sqrt(np.mean(Error[0]**2))
+    rmse_y = np.sqrt(np.mean(Error[1]**2))
+    rmse_z = np.sqrt(np.mean(Error[2]**2))
+
+    # Guardar RMSE como archivo .npy
+    np.save(f"RMSE_K{K}_T{t_final}.npy", np.array([rmse_x, rmse_y, rmse_z]))
+
+    # Guardar resumen en .txt
+    log_file = "Resultados_RMSE.txt"
+    with open(log_file, "a") as f:
+        f.write(f"K={K:.2f}, T={t_final}s -> RMSE_X={rmse_x:.4f}, RMSE_Y={rmse_y:.4f}, RMSE_Z={rmse_z:.4f}\n")
+
+
 
     plt.show()
 

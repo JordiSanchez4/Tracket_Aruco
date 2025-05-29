@@ -49,12 +49,17 @@ DEF classroom Group {
     Robot {
       children [
         Pose {
-          translation 2.9 2.95 0.65
-          rotation 0 0 1 -1.570796
+         #translation 2.39219 2.95957 0.74
+         #translation 2.9 2.95957 0.65 original casi 2.72 3.1 0.71
+          translation 2.72 3.1 0.71
+          #rotation 0 0 1 -1.570796 original
+          rotation 0 0 1 -1.650796
           children [
             Camera {
-              translation 0.24 0.15 0.35
-              rotation -0.1970422393758821 -0.2736697769109474 0.941424032573659 -1.6
+              #translation 0.24 0.15 0.35 original
+              translation 0.16 0.04 0.5
+              #rotation -0.1970422393758821 -0.2736697769109474 0.941424032573659 -1.6
+              rotation -0.3970422393758821 -0.3736697769109474 0.901424032573659 -1.6
               name "WebCam"
               fieldOfView 1.5
               width 1280
@@ -98,8 +103,14 @@ DEF classroom Group {
           ]
         }
       ]
-      controller "Camara_ros"
+      controller "detector_aruco_webots"
     }
+
+
+
+
+
+    
     Table {
       translation -2.54 2.94 0
       rotation 0 0 1 -1.5707953071795862

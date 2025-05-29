@@ -87,7 +87,10 @@ def send_velocity_control(u):
 def main():
     global control_pub
     control_pub = rospy.Publisher("/control", Joy, queue_size=10)
+    import sys
     t_final = 200
+    #t_final = int(sys.argv[1]) if len(sys.argv) > 1 else 200
+
     frec = 50
     t_s = 1 / frec
     t = np.arange(0, t_final, t_s)
@@ -120,6 +123,30 @@ def main():
         rate.sleep()
 
     send_velocity_control([0, 0, 0, 0])
+
+    # === Calcular RMSE por eje ===
+    rmse_x = np.sqrt(np.mean(Error[0]**2))
+    rmse_y = np.sqrt(np.mean(Error[1]**2))
+    rmse_z = np.sqrt(np.mean(Error[2]**2))
+
+    print(f"[DONE] RMSE_X={rmse_x:.4f}, RMSE_Y={rmse_y:.4f}, RMSE_Z={rmse_z:.4f}")
+
+    # Guardar RMSE como archivo .npy
+    np.save(f"RMSE_PID_T{t_final}.npy", np.array([rmse_x, rmse_y, rmse_z]))
+
+    # Guardar resumen en .txt
+    with open("Resultados_RMSE_PID.txt", "a") as f:
+        f.write(f"T={t_final}s -> RMSE_X={rmse_x:.4f}, RMSE_Y={rmse_y:.4f}, RMSE_Z={rmse_z:.4f}\n")
+
+
+
+
+
+
+
+
+
+
 
     #np.savetxt("control.txt", x)
     #np.save("vector.npy", x)
